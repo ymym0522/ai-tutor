@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ERICA 수강도우미 챗봇</title>
+<style>
+  :root{--navy:#071a3d;--blue:#1769ff;--cyan:#22d3ee;--text:#172033;--muted:#667085;--line:#e7eaf0}
+  *{box-sizing:border-box} body{margin:0;font-family:Arial,"Noto Sans KR",sans-serif;background:#f5f7fb;color:var(--text)}
+  .demo{min-height:100vh;padding:56px 24px;background:linear-gradient(135deg,#f7f9fd,#edf4ff)}
+  .demo-inner{max-width:1000px;margin:auto}.demo h1{margin:0 0 12px}.demo p{color:var(--muted)}
+  #display-ai-widget{position:fixed;right:24px;bottom:24px;z-index:99999;font-family:Arial,"Noto Sans KR",sans-serif}
+  #display-ai-launcher{display:flex;align-items:center;gap:10px;border:0;border-radius:999px;padding:8px 15px 8px 8px;background:var(--navy);color:#fff;cursor:pointer;box-shadow:0 12px 34px rgba(5,20,50,.28);font-size:15px;font-weight:700}
+  #display-ai-launcher img{width:46px;height:46px;border-radius:50%;object-fit:cover;object-position:center 38%;border:2px solid rgba(255,255,255,.92);background:#071a3d}
+  #display-ai-panel{display:none;position:absolute;right:0;bottom:70px;width:min(360px,calc(100vw - 32px));background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 18px 55px rgba(5,20,50,.24)}
+  #display-ai-panel.open{display:block}
+  .ai-hero{height:125px;background:var(--navy);overflow:hidden;position:relative}.ai-hero img{width:100%;height:100%;object-fit:cover}.ai-hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,26,61,.25),rgba(7,26,61,.02))}
+  .ai-close{position:absolute;top:10px;right:10px;z-index:2;width:36px;height:36px;border:0;border-radius:50%;background:rgba(0,0,0,.48);color:#fff;font-size:23px;cursor:pointer}
+  .ai-body{padding:20px}.ai-body h2{font-size:21px;margin:0 0 7px}.ai-tag{font-size:14px;color:var(--blue);font-weight:700;margin-bottom:12px}.ai-body p{font-size:14px;line-height:1.65;margin:0 0 18px;color:#475467}
+  .ai-link{display:flex;align-items:center;justify-content:center;min-height:48px;border-radius:12px;background:var(--blue);color:#fff;text-decoration:none;font-weight:700}.ai-link:hover{filter:brightness(.95)}
+  .ai-note{font-size:11px!important;color:#98a2b3!important;margin:12px 0 0!important;text-align:center}
+  @media(max-width:520px){#display-ai-widget{right:14px;bottom:14px}#display-ai-launcher{padding-right:10px}#display-ai-launcher span{display:none}#display-ai-launcher img{width:52px;height:52px}.ai-hero{height:110px}}
+</style>
+</head>
+<body>
+<div class="demo"><div class="demo-inner"><h1>한양대 ERICA 사회교육원</h1><p>오른쪽 아래의 수강도우미 버튼을 눌러보세요.</p></div></div>
+
+<div id="display-ai-widget">
+  <div id="display-ai-panel" role="dialog" aria-label="ERICA 수강도우미 안내">
+    <div class="ai-hero">
+      <img src="display-ai-banner.png" alt="ERICA 수강도우미 대표 이미지">
+      <button class="ai-close" id="display-ai-close" type="button" aria-label="닫기">×</button>
+    </div>
+    <div class="ai-body">
+      <h2>ERICA 수강도우미</h2>
+      <div class="ai-tag">수강 관련 궁금증을 AI에게 물어보세요.</div>
+      <p>교육과정, 수강대상, 학습내용 등 궁금한 사항을 AI 수강도우미에게 질문해 보세요.</p>
+      <a class="ai-link" href="https://buly.kr/58VQrWP" target="_blank" rel="noopener noreferrer">수강도우미에게 질문하기 →</a>
+      <p class="ai-note">AI 답변은 참고용입니다. 정확한 모집 일정과 수강료는 사회교육원 공식 안내를 확인해 주세요.</p>
+    </div>
+  </div>
+  <button id="display-ai-launcher" type="button" aria-expanded="false" aria-controls="display-ai-panel">
+    <img src="display-ai-icon.png" alt="수강도우미 아이콘">
+    <span>수강도우미</span>
+  </button>
+</div>
+
+<script>
+(function(){
+  const launcher=document.getElementById('display-ai-launcher');
+  const panel=document.getElementById('display-ai-panel');
+  const close=document.getElementById('display-ai-close');
+  function setOpen(open){panel.classList.toggle('open',open);launcher.setAttribute('aria-expanded',String(open));}
+  launcher.addEventListener('click',()=>setOpen(!panel.classList.contains('open')));
+  close.addEventListener('click',()=>setOpen(false));
+  document.addEventListener('keydown',(e)=>{if(e.key==='Escape')setOpen(false);});
+})();
+</script>
+</body>
+</html>
